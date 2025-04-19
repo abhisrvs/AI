@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trending Topics</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .btns {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        #chart-container {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+        <a class="navbar-brand" href="{{ url_for('index') }}">TDMPRS</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('trending') }}">Trending Topics</a></li>
+                <li class="nav-item"><p class="nav-link">Welcome, {{ session.user }}!</p></li>
+            </ul>
+            <form class="d-flex">
+                <a class="btn btn-outline-light" href="{{ url_for('logout') }}">Logout</a>
+            </form>
+        </div>
+    </nav>
+    <div class="container">
+        
+        <a href="{{ url_for('index') }}" class="btns">← Back to Tweets</a>
+        <h2 class="text-center">Trending Topics</h2>
+        {% if topics %}
+            <table border="1" class="table table-bordered border-primary mt-4">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Topic</th>
+                        <th>Mentions</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for topic, count in topics %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ topic }}</td>
+                            <td>{{ count }}</td>
+                            <td>
+                                <button type="button" class="btns" onclick="recommendTopic(event, '{{ topic }}')">Generate Recommendation</button>
+
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div id="recommendations" class="mt-5"></div>
+
+            <div id="chart-container">
+                <canvas id="trendingChart" width="600" height="300"></canvas>
+            </div>
+        {% else %}
+            <p>No trending topics available.</p>
+        {% endif %}
+    </div>
+
+    <script>
+    const chartData = JSON.parse('{{ topics | tojson | safe }}');
+    const topicLabels = chartData.map(item => item[0]);
+    const topicCounts = chartData.map(item => item[1]);
+
+    const ctx = document.getElementById('trendingChart').getContext('2d');
+    const trendingChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: topicLabels,
+            datasets: [{
+                label: '# of Mentions',
+                data: topicCounts,
+                backgroundColor: 'rgba(0, 123, 255, 0.6)',
+                borderColor: 'rgba(0, 123, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+        function recommendTopic(topic) {
+            window.location.href = `/recommend_topic/${encodeURIComponent(topic)}`;
+        }
+    </script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
