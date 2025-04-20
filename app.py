@@ -3,7 +3,6 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sbert_recommender import load_tweets, recommend_tweets
-from sentiment_utils import filter_by_sentiment
 from trending_utils import load_public_tweets, extract_trending_topics
 import os
 import config
