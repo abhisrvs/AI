@@ -1,0 +1,11 @@
+# config.py
+
+# CONSUMER_KEY = 'naf26UoXPCPLkEOWYcqM8W9S3'
+# CONSUMER_SECRET = 'e58kXtMgwn9wXeWoleinGjlNkRrOjkUi57IzwvPhEwPuUqBNAi'
+# ACCESS_TOKEN = '1911960638940696576-NJRhlnaJgL8nLRPvmMjMzpHaPYK3IZ'
+# ACCESS_TOKEN_SECRET = 'UeF0CqNGdvBNJWuaQk1TNraIr7cFL236JZauHREpntipb'
+import os
+secret_key= os.urandom(24)
+USERNAME = "admin"
+PASSWORD = "admin123"
+

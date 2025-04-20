@@ -1,0 +1,80 @@
+/* static/css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1,h2,h3,h4 {
+    text-align: center;
+    color: #333;
+    font-family: Sans Serif
+}
+p, th, button{
+    font-family: Sans Serif
+}
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-btn {
+    padding: 6px 12px;
+    margin: 0 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #007bff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.page-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #ccc;
+}
+
+.page-btn:active,
+.page-btn.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.page-btn:disabled {
+    color: #6c757d;
+    cursor: not-allowed;
+    background-color: #e9ecef;
+    border-color: #ddd;
+}
+
+.page-item {
+    display: inline-block;
+}
+
+.page-btn:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.page-btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.login-page {
+padding:50px;
+}
