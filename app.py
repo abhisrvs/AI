@@ -7,8 +7,6 @@ from trending_utils import load_public_tweets, extract_trending_topics
 import os
 import config
 from functools import wraps
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-analyzer = SentimentIntensityAnalyzer()
 
 
 app = Flask(__name__)
